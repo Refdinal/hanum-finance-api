@@ -1,0 +1,10 @@
+-- alter.sql
+-- Riwayat perubahan skema (APPEND-ONLY).
+--
+-- Aturan:
+--   - JANGAN menghapus atau mengubah statement yang sudah ada di file ini.
+--   - JANGAN memakai DROP TABLE / TRUNCATE / DELETE tanpa WHERE.
+--   - Tambahkan statement ALTER/CREATE baru di bagian bawah file.
+--   - Gunakan IF NOT EXISTS bila tersedia agar aman dijalankan ulang.
+--
+-- Skema final (transaksi) ada di schema.sql. Tidak ada perubahan tertunda.
