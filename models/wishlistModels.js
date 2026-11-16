@@ -47,9 +47,18 @@ const checkoutWishlistItem = async (id) => {
   return result.rows[0];
 };
 
+const restoreWishlistItem = async (id) => {
+  const result = await pool.query(
+    "UPDATE wishlist SET status = 'wishlist' WHERE id = $1 AND status = 'checkout' RETURNING id, nama, volume, satuan, harga, status",
+    [id],
+  );
+  if (result.rowCount === 0) throw new Error("Item Checkout tidak ditemukan");
+  return result.rows[0];
+};
+
 const deleteWishlistItem = async (id) => {
   const result = await pool.query("DELETE FROM wishlist WHERE id = $1", [id]);
   return { deleted: result.rowCount };
 };
 
-module.exports = { getWishlist, createWishlistItem, updateWishlistItem, deleteWishlistItem, checkoutWishlistItem };
+module.exports = { getWishlist, createWishlistItem, updateWishlistItem, deleteWishlistItem, checkoutWishlistItem, restoreWishlistItem };

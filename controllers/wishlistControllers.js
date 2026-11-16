@@ -47,4 +47,13 @@ const checkoutWishlistItem = async (req, res) => {
   }
 };
 
-module.exports = { getWishlist, createWishlistItem, updateWishlistItem, deleteWishlistItem, checkoutWishlistItem };
+const restoreWishlistItem = async (req, res) => {
+  try {
+    const item = await model.restoreWishlistItem(req.params.id);
+    return res.status(200).json({ status: "success", item });
+  } catch (error) {
+    return errorResponse(res, error);
+  }
+};
+
+module.exports = { getWishlist, createWishlistItem, updateWishlistItem, deleteWishlistItem, checkoutWishlistItem, restoreWishlistItem };
