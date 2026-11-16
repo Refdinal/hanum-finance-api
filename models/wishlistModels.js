@@ -18,9 +18,23 @@ const createWishlistItem = async ({ nama, harga }) => {
   return result.rows[0];
 };
 
+const updateWishlistItem = async (id, { nama, harga }) => {
+  const namaBersih = String(nama || "").trim();
+  const hargaAngka = Number(harga);
+  if (!namaBersih) throw new Error("Nama item wajib diisi");
+  if (!Number.isFinite(hargaAngka) || hargaAngka <= 0) throw new Error("Harga harus lebih dari 0");
+
+  const result = await pool.query(
+    "UPDATE wishlist SET nama = $1, harga = $2 WHERE id = $3 RETURNING id, nama, harga",
+    [namaBersih, hargaAngka, id],
+  );
+  if (result.rowCount === 0) throw new Error("Item Wishlist tidak ditemukan");
+  return result.rows[0];
+};
+
 const deleteWishlistItem = async (id) => {
   const result = await pool.query("DELETE FROM wishlist WHERE id = $1", [id]);
   return { deleted: result.rowCount };
 };
 
-module.exports = { getWishlist, createWishlistItem, deleteWishlistItem };
+module.exports = { getWishlist, createWishlistItem, updateWishlistItem, deleteWishlistItem };

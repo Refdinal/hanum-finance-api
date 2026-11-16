@@ -20,6 +20,15 @@ const createWishlistItem = async (req, res) => {
   }
 };
 
+const updateWishlistItem = async (req, res) => {
+  try {
+    const item = await model.updateWishlistItem(req.params.id, req.body);
+    return res.status(200).json({ status: "success", item });
+  } catch (error) {
+    return errorResponse(res, error);
+  }
+};
+
 const deleteWishlistItem = async (req, res) => {
   try {
     const result = await model.deleteWishlistItem(req.params.id);
@@ -29,4 +38,4 @@ const deleteWishlistItem = async (req, res) => {
   }
 };
 
-module.exports = { getWishlist, createWishlistItem, deleteWishlistItem };
+module.exports = { getWishlist, createWishlistItem, updateWishlistItem, deleteWishlistItem };
