@@ -8,3 +8,12 @@
 --   - Gunakan IF NOT EXISTS bila tersedia agar aman dijalankan ulang.
 --
 -- Skema final (transaksi) ada di schema.sql. Tidak ada perubahan tertunda.
+
+CREATE TABLE IF NOT EXISTS wishlist (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    nama TEXT NOT NULL,
+    harga NUMERIC NOT NULL CHECK (harga > 0),
+    dibuat_pada TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_wishlist_dibuat_pada ON wishlist (dibuat_pada DESC);

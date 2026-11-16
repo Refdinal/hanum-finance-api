@@ -4,6 +4,7 @@ const cors = require("cors");
 require("dotenv").config();
 const routerTransaksi = require("./routes/transaksiRoutes");
 const routerYfinance = require("./routes/yfinanceRoutes");
+const routerWishlist = require("./routes/wishlistRoutes");
 const allowedOrigins = (process.env.CORS_ORIGIN || "")
   .split(",")
   .map((o) => o.trim())
@@ -27,6 +28,7 @@ app.get("/ping", (req, res) => {
   res.json({ message: "Server is running!" });
 });
 app.use("/transaksi", routerTransaksi);
+app.use("/wishlist", routerWishlist);
 app.use("/yfinance", routerYfinance);
 // listen port
 const port = process.env.PORT || 8080; // Gunakan 8080 jika cPanel mendukung

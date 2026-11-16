@@ -20,3 +20,12 @@ CREATE INDEX IF NOT EXISTS idx_transaksi_tipe ON transaksi (tipe);
 CREATE INDEX IF NOT EXISTS idx_transaksi_asal ON transaksi (asal);
 CREATE INDEX IF NOT EXISTS idx_transaksi_tujuan ON transaksi (tujuan);
 CREATE INDEX IF NOT EXISTS idx_transaksi_grup ON transaksi (grup_id);
+
+CREATE TABLE IF NOT EXISTS wishlist (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    nama TEXT NOT NULL,
+    harga NUMERIC NOT NULL CHECK (harga > 0),
+    dibuat_pada TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_wishlist_dibuat_pada ON wishlist (dibuat_pada DESC);
