@@ -25,7 +25,14 @@ CREATE TABLE IF NOT EXISTS wishlist (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     nama TEXT NOT NULL,
     harga NUMERIC NOT NULL CHECK (harga > 0),
+    volume NUMERIC NOT NULL DEFAULT 1 CHECK (volume > 0),
+    satuan TEXT NOT NULL DEFAULT 'pcs',
+    status TEXT NOT NULL DEFAULT 'wishlist' CHECK (status IN ('wishlist', 'checkout')),
     dibuat_pada TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+ALTER TABLE wishlist ADD COLUMN IF NOT EXISTS volume NUMERIC NOT NULL DEFAULT 1 CHECK (volume > 0);
+ALTER TABLE wishlist ADD COLUMN IF NOT EXISTS satuan TEXT NOT NULL DEFAULT 'pcs';
+ALTER TABLE wishlist ADD COLUMN IF NOT EXISTS status TEXT NOT NULL DEFAULT 'wishlist' CHECK (status IN ('wishlist', 'checkout'));
 
 CREATE INDEX IF NOT EXISTS idx_wishlist_dibuat_pada ON wishlist (dibuat_pada DESC);

@@ -17,3 +17,7 @@ CREATE TABLE IF NOT EXISTS wishlist (
 );
 
 CREATE INDEX IF NOT EXISTS idx_wishlist_dibuat_pada ON wishlist (dibuat_pada DESC);
+
+ALTER TABLE wishlist ADD COLUMN IF NOT EXISTS volume NUMERIC NOT NULL DEFAULT 1 CHECK (volume > 0);
+ALTER TABLE wishlist ADD COLUMN IF NOT EXISTS satuan TEXT NOT NULL DEFAULT 'pcs';
+ALTER TABLE wishlist ADD COLUMN IF NOT EXISTS status TEXT NOT NULL DEFAULT 'wishlist' CHECK (status IN ('wishlist', 'checkout'));
